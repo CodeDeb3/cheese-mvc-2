@@ -9,22 +9,22 @@ import java.util.ArrayList;
 // remove controller to models package from cheesce controller
 
 public class CheeseData {
-    static ArrayList<Cheese> cheeses = new ArrayList<Cheese>();
+    static ArrayList<Cheese> cheeseList = new ArrayList<Cheese>();
 
     //getAll
     public static ArrayList<Cheese> getAll(){
-        return cheeses;
+        return cheeseList;
     }
     //add
     public static void add(Cheese newCheese){
-        cheeses.add(newCheese);
+        cheeseList.add(newCheese);
     }
 
     // remove given object from list (then go to controller update model
 
     public static void remove(int id) {
         Cheese cheeseToRemove = getbyId(id);
-        cheeses.remove(cheeseToRemove);
+        cheeseList.remove(cheeseToRemove);
     }
 
     // getbyId
@@ -34,7 +34,7 @@ public class CheeseData {
 
         Cheese theCheese = null;
 
-        for (Cheese candidateCheese: cheeses) {
+        for (Cheese candidateCheese: cheeseList) {
             if (candidateCheese.getCheeseId() == id) {
                 theCheese = candidateCheese;
             }
