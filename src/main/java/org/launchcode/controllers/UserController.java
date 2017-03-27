@@ -36,7 +36,7 @@ public class UserController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAdd(Model model, @ModelAttribute User user, String verify) {
         if (user.getPassword().equals(verify)) {
-            return "redirect:";
+            return "users/index";
         }
         else {
             model.addAttribute("error", "Passwords do not match.");

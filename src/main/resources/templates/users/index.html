@@ -8,6 +8,8 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 <!--Displays Welcome Message and add ability to add user-->
+
+
 <div th:if="${newUser}" class="alert alert-success">
     <p th:text="${'Welcome ' + newUser + ', your account has been created.'}"></p>
 </div>
@@ -23,6 +25,7 @@
         <td th:text="${username}"></td>
         <td th:text="${email}"></td>
     </tr>
+
 
 </table>
 
