@@ -6,16 +6,42 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post" style="max-width:600px;">
+<form method="post" style="max-width:600px;" th:object="${cheese}">
     <!--form control and form groups make the smaller entry in add -->
     <div class="form-group">
-        <label for="name-field">Name</label>
-        <input class="form-control" id="name-field" type="text" name="name" />
+        <!--<label for="name-field">Name</label>-->
+        <!--<input class="form-control" id="name-field" type="text" name="name" />-->
+        <!--this below will use th to access all fields to current object-->
+        <label th:for="name">Name</label>
+        <input class="form-control" th:field="*{name}" />
+        <span th:errors="*{name}" class="error"></span>
     </div>
     <div class="form-group">
-        <label for="desc-field">Description</label>
-        <input class="form-control" id="desc-field" type="text" name="description" />
+        <!--<label for="desc-field">Description</label>-->
+        <!--<input class="form-control" id="desc-field" type="text" name="description" />-->
+        <label th:for="description">Description</label>
+        <input class="form-control" th:field="*{description}" />
+        <span th:errors="*{description}" class="error"></span>
     </div>
+
+    <!--empty cheese class will be used as template
+    when user selects something out of drop down go to type property of my model
+    the text cheeseType.name  and the $cheeseType shows the 3 options
+    need to go to CheeseController and pass in a new object-->
+
+    <div class="form-group">
+
+        <label th:for="type">Type</label>
+        <select th:field="*{type}">
+            <option th:each="cheeseType : ${cheeseTypes}"
+                    th:text="${cheeseType.name}"
+                    th:value="${cheeseType}">
+            </option>
+
+        </select>
+    </div>
+
+
     <input type="submit" value="Add Cheese" />
 </form>
 

@@ -1,13 +1,17 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.CheeseData;
+import org.launchcode.models.CheeseType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
 import org.launchcode.models.Cheese;
+
+import javax.validation.Valid;
 
 /**
  * Created by LaunchCode
@@ -34,12 +38,17 @@ public class CheeseController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddCheeseForm(Model model) {
         model.addAttribute("title", "Add Cheese");
+        /* add an empty object and passing the skeleton into view
+         *we can use the properties of it to help render the form
+         **/
+        model.addAttribute(new Cheese());
+        model.addAttribute("cheeseTypes", CheeseType.values());
         return "cheese/add";
     }
-// model binding removes too much code when having an object with many fields
-//    have springboot automatically create a cheese object when method called
+/* model binding removes too much code when having an object with many fields
+    have springboot automatically create a cheese object when method called
 
-//    public String processAddCheeseForm(@RequestParam String cheeseName,
+*    public String processAddCheeseForm(@RequestParam String cheeseName,
 //        @RequestParam String cheeseDescription) {
 //        Cheese newCheese = new Cheese (cheeseName, cheeseDescription);
 
@@ -49,8 +58,15 @@ public class CheeseController {
     into the class when controller recieves the object will be created with full data
     **/
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCheeseForm(@ModelAttribute Cheese newCheese) {
+    public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese,
+                                       Errors errors, Model model) {
 
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Add Cheese");
+            return "cheese/add";
+
+
+        }
         /*
         *  Springboot when identifies model type cheese will create new
         *  object using default contructor which is what initializes our ID in cheese

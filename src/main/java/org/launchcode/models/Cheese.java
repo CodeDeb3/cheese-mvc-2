@@ -1,13 +1,30 @@
 package org.launchcode.models;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by Debbie on 3/23/2017.
  */
 public class Cheese {
 
+
     // things i want to store
+
+    @NotNull
+    @Size(min=3, max=15)
     private String name;
+
+    @NotNull
+    @Size(min=1, message="Description must not be empty")
     private String description;
+
+    // add type of cheese with only a few values
+
+    // add a default hard. go to models CheeseType type = CheeseType.HARD
+
+    private CheeseType type;
+
     private int cheeseId; // integer identifier to be a unique class
     private static int nextId = 1; // to use to initialize for every new cheese we make
 
@@ -52,5 +69,13 @@ public class Cheese {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CheeseType getType() {
+        return type;
+    }
+
+    public void setType(CheeseType type) {
+        this.type = type;
     }
 }
