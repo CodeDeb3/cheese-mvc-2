@@ -61,8 +61,11 @@ public class CheeseController {
     public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese,
                                        Errors errors, Model model) {
 
+// this returns the form inside the view but types need to be populated by addAttr
         if (errors.hasErrors()){
-            model.addAttribute("title", "Add Cheese");
+            model.addAttribute("title", "Adding Cheese");
+            model.addAttribute("cheeseTypes", CheeseType.values());
+
             return "cheese/add";
 
 
@@ -79,6 +82,7 @@ public class CheeseController {
         *
         **/
             CheeseData.add(newCheese);
+//            CheeseData.add(type.newCheese);
 //        cheeses.put(cheeseName, cheeseDescription);
         return "redirect:";
     }
@@ -101,27 +105,40 @@ public class CheeseController {
 
         return "redirect:";
     }
+
     @RequestMapping(value = "edit/{cheeseId}", method=RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable("cheeseId") int cheeseId){
         Cheese currentCheese = CheeseData.getbyId(cheeseId);
         model.addAttribute("cheese", currentCheese);
+        model.addAttribute("cheeseTypes", CheeseType.values());
+
         return "cheese/edit";
     }
 
-    @RequestMapping(value = "edit/{cheeseId}", method=RequestMethod.POST)
-    public String processEditForm(Model model, @PathVariable("cheeseId") int cheeseId,
-                                  @RequestParam("name") String name,
-                                  @RequestParam ("description") String description){
+    @RequestMapping(value = "edit/{currentCheese.cheeseId}", method=RequestMethod.POST)
+    public String processEditForm(Model model, @ModelAttribute @Valid Cheese currentCheese,
+                                  Errors errors){
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Edit Cheese");
+            model.addAttribute("cheeseTypes", CheeseType.values());
 
-        Cheese currentCheese = CheeseData.getbyId(cheeseId);
+            return "cheese/edit";
+        }
 
-        currentCheese.setName(name);
-        currentCheese.setDescription(description);
+// the modelAttribute built the newcheese above
+// Cheese currentCheese = CheeseData.getbyId(cheeseId);
 
-        CheeseData.remove(cheeseId);
+//        currentCheese.setName(name);
+//        currentCheese.setDescription(description);
+
+        CheeseData.remove(currentCheese.getCheeseId());
         CheeseData.add(currentCheese);
+        // this is needed to go to view after editing cheeses!!!
+        model.addAttribute("cheeses", CheeseData.getAll());
+        model.addAttribute("title", "My Cheeses");
 
-        return "redirect:/cheese";
+
+        return "/cheese/index";
     }
 
 }

@@ -1,15 +1,30 @@
 package org.launchcode.models;
 
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by Debbie on 3/23/2017.
  */
 public class User {
 
+    @NotNull
+    @Size(min= 5, max= 15)
     private String username;
+
+    @Email(message = "Invalid email address")
     private String email;
+
+
+    @NotNull
+    @Size(min=6, message = "Password must be at least 6 characters long")
     private String password;
-    private int userId;
-    private static int nextId =1;
+
+
+//    private int userId;
+//    private static int nextId =1;
 
     public User(String username, String email, String password) {
         this();
@@ -17,11 +32,11 @@ public class User {
         this.email = email;
         this.password = password;
 
-
     }
+
     public User(){
-        this.userId = nextId;
-        this.nextId++;
+//        this.userId = nextId;
+//        this.nextId++;
     }
 
     public int getUserId() {

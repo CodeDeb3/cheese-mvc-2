@@ -3,11 +3,13 @@ package org.launchcode.controllers;
 import org.launchcode.models.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Created by Debbie on 3/23/2017.
@@ -30,12 +32,20 @@ public class UserController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
 
+        model.addAttribute(new User());
         return "users/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAdd(Model model, @ModelAttribute User user, String verify) {
-        if (user.getPassword().equals(verify)) {
+    public String processAdd(Model model, @ModelAttribute @Valid User user,
+                             Errors errors, String verify) {
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "User Login");
+            model.addAttribute("User", user.getUsername());
+        }
+
+            if (user.getPassword().equals(verify)) {
             return "users/index";
         }
         else {
