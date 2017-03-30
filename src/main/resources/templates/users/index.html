@@ -8,6 +8,7 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 <!--Displays Welcome Message and add ability to add user-->
+<p th:unless="${users} and ${users.size()}">no users :(</p>
 
 
 <div th:if="${username}" class="alert alert-success">
@@ -18,12 +19,19 @@
 
     <tr>
         <th>Username</th>
-        <th>email</th>
+        <th>Email</th>
+        <th>Edit</th>
     </tr>
 
-    <tr>
+    <tr th:each="user : ${users}">
         <td th:text="${user.username}"></td>
         <td th:text="${user.email}"></td>
+
+        <td>
+        <!--This is another way you can create an href using Thymeleaf-->
+        <a th:href="@{/user/edit/{userId}(userId=${user.userId})}">edit</a>
+        </td>
+
     </tr>
 
 

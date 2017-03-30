@@ -133,6 +133,7 @@ public class CheeseController {
 
         CheeseData.remove(currentCheese.getCheeseId());
         CheeseData.add(currentCheese);
+
         // this is needed to go to view after editing cheeses!!!
         model.addAttribute("cheeses", CheeseData.getAll());
         model.addAttribute("title", "My Cheeses");

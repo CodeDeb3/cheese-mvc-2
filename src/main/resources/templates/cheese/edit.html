@@ -40,8 +40,16 @@ Edit Cheese ' + cheese.name + ' ' + cheese.cheeseId}"></div>
         <span th:errors="*{type}" class="error"></span>
 
     </div>
+    <div class="form-group">
+        <label th:for="rating">Rating</label>
+        <input class="form-control" type="number" th:field="*{rating}"/>
+        <span th:errors="*{rating}" class="error"></span>
+    </div>
 
-    <input type="hidden" th:value = "*{cheeseId}" name="cheeseId" />
+    <!-- We add a hidden field for our cheeseId (Using `*{cheeseId}` to reference our model defined above as `th:object="${cheese}"`-->
+    <input type="hidden" th:field="*{cheeseId}"/>
+
+    <!--<input type="hidden" th:value = "*{cheeseId}" name="cheeseId" />-->
     <input type="submit" value="Edit Cheese" />
 </form>
 

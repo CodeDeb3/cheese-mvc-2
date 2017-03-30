@@ -19,12 +19,12 @@ public class User {
 
 
     @NotNull
-    @Size(min=6, message = "Password must be at least 6 characters long")
+    @Size(min=5, message = "Password must be at least 5 characters long")
     private String password;
 
 
-//    private int userId;
-//    private static int nextId =1;
+    private int userId;
+    private static int nextId =1;
 
     public User(String username, String email, String password) {
         this();
@@ -35,8 +35,8 @@ public class User {
     }
 
     public User(){
-//        this.userId = nextId;
-//        this.nextId++;
+        this.userId = nextId;
+        this.nextId++;
     }
 
     public int getUserId() {

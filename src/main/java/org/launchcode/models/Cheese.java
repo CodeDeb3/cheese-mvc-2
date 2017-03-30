@@ -1,5 +1,7 @@
 package org.launchcode.models;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,8 +21,15 @@ public class Cheese {
     @Size(min=1, message="Description must not be empty")
     private String description;
 
-    // add type of cheese with only a few values
+    /**
+     * Min and Max provide validation for low and high limits to our rating
+     */
+    @Max(5)
+    @Min(1)
+    private int rating;
 
+
+    // add type of cheese with only a few values
     // add a default hard. go to models CheeseType type = CheeseType.HARD
 
     private CheeseType type;
@@ -77,5 +86,13 @@ public class Cheese {
 
     public void setType(CheeseType type) {
         this.type = type;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
