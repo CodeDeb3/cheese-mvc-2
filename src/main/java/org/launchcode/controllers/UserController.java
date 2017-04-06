@@ -1,6 +1,7 @@
 package org.launchcode.controllers;
 
 import org.launchcode.models.User;
+//import org.launchcode.models.UserComparator;
 import org.launchcode.models.UserData;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 /**
  * Created by Debbie on 3/23/2017.
@@ -26,8 +27,12 @@ public class UserController {
     public String index(Model model){
 //                        HttpServletRequest request) {
 //        model.addAttribute("username", request.getAttribute("username"));
+        ArrayList<User> users = UserData.getAll();
+//        UserComparator compare = new UserComparator();
+//        users.sort(compare);
+        model.addAttribute("users", users);
 
-        model.addAttribute("users", UserData.getAll());
+//        model.addAttribute("users", UserData.getAll());
         model.addAttribute("title","My Users" );
         return "users/index";
     }
@@ -60,8 +65,10 @@ public class UserController {
 //        return "users/add";
 //        public String processAddUserForm(@RequestParam String verify, @ModelAttribute @Valid User newUser, Errors errors, Model model) {
 
-            // Here, we see checking for validation errors, as well as checking the verification password together
-            // This is done to reduce code repeat, and ensure that we can return both validation errors,
+            // Here, we see checking for validation errors, as well as checking the
+        // verification password together
+            // This is done to reduce code repeat, and ensure that we can
+        // return both validation errors,
             // as well as our password verification error together
 
             if (errors.hasErrors() || !newUser.getPassword().equals(verify)) {

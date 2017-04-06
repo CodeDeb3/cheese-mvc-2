@@ -54,8 +54,9 @@ public class CheeseController {
 
     /* modelattribute will look at "cheese class" in cheese.java models
      and create an new cheese object with those
-    properties with getters and setters POST request any data that matches will be inserted
-    into the class when controller recieves the object will be created with full data
+    properties with getters and setters POST request any data that matches will be
+    inserted into the class when controller receives the object will be created
+    with full data
     **/
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(@ModelAttribute @Valid Cheese newCheese,
@@ -67,13 +68,12 @@ public class CheeseController {
             model.addAttribute("cheeseTypes", CheeseType.values());
 
             return "cheese/add";
-
-
         }
         /*
         *  Springboot when identifies model type cheese will create new
         *  object using default contructor which is what initializes our ID in cheese
-        *  model  does not know which contructors will use but just default for all our classes
+        *  model  does not know which contructors will use but just default
+         *  for all our classes
         *
         * Cheese newCheese = new Cheese();
         * newCheese.setName(Request.getParameter("name"); look for parm and set it
@@ -94,7 +94,8 @@ public class CheeseController {
         return "cheese/remove";
     }
 
-//     update to integer from string to keep integer ids rather than string goto removetemp
+//     update to integer from string to keep integer ids rather than string
+// goto removetemp
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveCheeseForm(@RequestParam int[] cheeseIds) {
 

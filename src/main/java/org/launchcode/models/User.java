@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 /**
  * Created by Debbie on 3/23/2017.
  */
-public class User {
+public class User implements Comparable<User> {
 
     @NotNull
     @Size(min= 5, max= 15)
@@ -72,5 +72,13 @@ public class User {
     }
 
 
-
+    @Override
+    public int compareTo(User o) {
+        if (this.getUserId() > o.getUserId()) {
+            return -1;
+        } else if (this.getUserId() < o.getUserId()) {
+            return 1;
+        }
+        return 0;
+    }
 }

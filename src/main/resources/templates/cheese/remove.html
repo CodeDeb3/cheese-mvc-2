@@ -7,8 +7,9 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<form method="post">
+<form method="post" th:if="${cheeses}">
 
+    <!--th:if I have cheese return this form!-->
     <!--the labels/input of the th value and th id need to modify to show name and desc-->
 
     <div th:each="cheese : ${cheeses}" class="checkbox">
